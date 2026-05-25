@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'inventory_provider.dart';
 import 'add_article_page.dart';
 import 'article_qr_screen.dart';
@@ -60,7 +61,12 @@ class InventoryPage extends ConsumerWidget {
             SliverToBoxAdapter(
               child: inventoryAsync.when(
                 data: (articles) {
-                  var filtered = articles.where((a) => a.title.toLowerCase().contains(searchQuery.toLowerCase())).toList();
+                  var filtered = articles.where((a) {
+                    final query = searchQuery.toLowerCase();
+                    // Recherche par titre OU par UUID (pour le scan QR)
+                    return a.title.toLowerCase().contains(query) || a.uuid.toLowerCase().contains(query);
+                  }).toList();
+
                   if (filterStatus != null) {
                     filtered = filtered.where((a) => a.status == filterStatus).toList();
                   }
@@ -188,30 +194,81 @@ class _SearchButton extends ConsumerStatefulWidget {
 
 class _SearchButtonState extends ConsumerState<_SearchButton> {
   bool _isSearching = false;
+  final TextEditingController _controller = TextEditingController();
+
+  Future<void> _scanAndSearch() async {
+    final code = await Navigator.push<String>(
+      context,
+      MaterialPageRoute(builder: (context) => const _InventoryQRScanner()),
+    );
+    if (code != null) {
+      setState(() => _isSearching = true);
+      _controller.text = code;
+      ref.read(searchProvider.notifier).state = code;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final query = ref.watch(searchProvider);
+    if (query.isEmpty && _controller.text.isNotEmpty) _controller.clear();
+
     return AnimatedContainer(
       duration: 300.ms,
-      width: _isSearching ? 200 : 50,
+      width: _isSearching ? 240 : 50,
       child: GlassContainer(
         borderRadius: 20,
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: _isSearching 
-          ? TextField(
-              autofocus: true,
-              onChanged: (val) => ref.read(searchProvider.notifier).state = val,
-              decoration: InputDecoration(
-                hintText: 'Titre...',
-                border: InputBorder.none,
-                icon: const Icon(Icons.search_rounded, size: 20),
-                suffixIcon: IconButton(icon: const Icon(Icons.close, size: 18), onPressed: () {
-                  setState(() => _isSearching = false);
-                  ref.read(searchProvider.notifier).state = '';
-                }),
-              ),
+          ? Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    autofocus: true,
+                    onChanged: (val) => ref.read(searchProvider.notifier).state = val,
+                    decoration: const InputDecoration(
+                      hintText: 'Titre ou scan...',
+                      border: InputBorder.none,
+                      icon: Icon(Icons.search_rounded, size: 20),
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.qr_code_scanner_rounded, size: 20, color: Colors.blue),
+                  onPressed: _scanAndSearch,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.close, size: 18),
+                  onPressed: () {
+                    setState(() => _isSearching = false);
+                    _controller.clear();
+                    ref.read(searchProvider.notifier).state = '';
+                  },
+                ),
+              ],
             )
           : IconButton(icon: const Icon(Icons.search_rounded), onPressed: () => setState(() => _isSearching = true)),
+      ),
+    );
+  }
+}
+
+class _InventoryQRScanner extends StatelessWidget {
+  const _InventoryQRScanner();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Scanner l\'article')),
+      body: MobileScanner(
+        onDetect: (capture) {
+          final barcodes = capture.barcodes;
+          if (barcodes.isNotEmpty) {
+            final code = barcodes.first.rawValue;
+            if (code != null) Navigator.pop(context, code);
+          }
+        },
       ),
     );
   }
