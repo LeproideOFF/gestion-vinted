@@ -72,4 +72,4 @@ Cette application a été conçue pour les "Power Users" de Vinted qui souhaiten
 
 ---
 
-*Développé avec passion par **leprodie**.*
+*Développé avec passion par **leproide**.*
