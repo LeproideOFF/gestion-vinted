@@ -6,7 +6,7 @@ part of 'sync_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$syncNotifierHash() => r'9843437c23a1a85cc0fd863ace9b57b3e2569d45';
+String _$syncNotifierHash() => r'39c98add6e37a466b7958456c3a919c31f5eec45';
 
 /// See also [SyncNotifier].
 @ProviderFor(SyncNotifier)

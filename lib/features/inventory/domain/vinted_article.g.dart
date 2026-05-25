@@ -67,83 +67,88 @@ const VintedArticleSchema = CollectionSchema(
       name: r'location',
       type: IsarType.string,
     ),
-    r'netProfit': PropertySchema(
+    r'market': PropertySchema(
       id: 10,
+      name: r'market',
+      type: IsarType.string,
+    ),
+    r'netProfit': PropertySchema(
+      id: 11,
       name: r'netProfit',
       type: IsarType.double,
     ),
     r'notes': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'notes',
       type: IsarType.string,
     ),
     r'packagingCost': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'packagingCost',
       type: IsarType.double,
     ),
     r'photoPaths': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'photoPaths',
       type: IsarType.stringList,
     ),
     r'platformFees': PropertySchema(
-      id: 14,
+      id: 15,
       name: r'platformFees',
       type: IsarType.double,
     ),
     r'purchasePrice': PropertySchema(
-      id: 15,
+      id: 16,
       name: r'purchasePrice',
       type: IsarType.double,
     ),
     r'repairCost': PropertySchema(
-      id: 16,
+      id: 17,
       name: r'repairCost',
       type: IsarType.double,
     ),
     r'sellingPrice': PropertySchema(
-      id: 17,
+      id: 18,
       name: r'sellingPrice',
       type: IsarType.double,
     ),
     r'shippingCost': PropertySchema(
-      id: 18,
+      id: 19,
       name: r'shippingCost',
       type: IsarType.double,
     ),
     r'size': PropertySchema(
-      id: 19,
+      id: 20,
       name: r'size',
       type: IsarType.string,
     ),
     r'status': PropertySchema(
-      id: 20,
+      id: 21,
       name: r'status',
       type: IsarType.string,
     ),
     r'title': PropertySchema(
-      id: 21,
+      id: 22,
       name: r'title',
       type: IsarType.string,
     ),
     r'totalPurchaseCost': PropertySchema(
-      id: 22,
+      id: 23,
       name: r'totalPurchaseCost',
       type: IsarType.double,
     ),
     r'trackingNumber': PropertySchema(
-      id: 23,
+      id: 24,
       name: r'trackingNumber',
       type: IsarType.string,
     ),
     r'updatedAt': PropertySchema(
-      id: 24,
+      id: 25,
       name: r'updatedAt',
       type: IsarType.dateTime,
     ),
     r'uuid': PropertySchema(
-      id: 25,
+      id: 26,
       name: r'uuid',
       type: IsarType.string,
     )
@@ -188,6 +193,7 @@ int _vintedArticleEstimateSize(
   bytesCount += 3 + object.condition.length * 3;
   bytesCount += 3 + object.description.length * 3;
   bytesCount += 3 + object.location.length * 3;
+  bytesCount += 3 + object.market.length * 3;
   bytesCount += 3 + object.notes.length * 3;
   bytesCount += 3 + object.photoPaths.length * 3;
   {
@@ -220,22 +226,23 @@ void _vintedArticleSerialize(
   writer.writeString(offsets[7], object.description);
   writer.writeBool(offsets[8], object.isFavorite);
   writer.writeString(offsets[9], object.location);
-  writer.writeDouble(offsets[10], object.netProfit);
-  writer.writeString(offsets[11], object.notes);
-  writer.writeDouble(offsets[12], object.packagingCost);
-  writer.writeStringList(offsets[13], object.photoPaths);
-  writer.writeDouble(offsets[14], object.platformFees);
-  writer.writeDouble(offsets[15], object.purchasePrice);
-  writer.writeDouble(offsets[16], object.repairCost);
-  writer.writeDouble(offsets[17], object.sellingPrice);
-  writer.writeDouble(offsets[18], object.shippingCost);
-  writer.writeString(offsets[19], object.size);
-  writer.writeString(offsets[20], object.status);
-  writer.writeString(offsets[21], object.title);
-  writer.writeDouble(offsets[22], object.totalPurchaseCost);
-  writer.writeString(offsets[23], object.trackingNumber);
-  writer.writeDateTime(offsets[24], object.updatedAt);
-  writer.writeString(offsets[25], object.uuid);
+  writer.writeString(offsets[10], object.market);
+  writer.writeDouble(offsets[11], object.netProfit);
+  writer.writeString(offsets[12], object.notes);
+  writer.writeDouble(offsets[13], object.packagingCost);
+  writer.writeStringList(offsets[14], object.photoPaths);
+  writer.writeDouble(offsets[15], object.platformFees);
+  writer.writeDouble(offsets[16], object.purchasePrice);
+  writer.writeDouble(offsets[17], object.repairCost);
+  writer.writeDouble(offsets[18], object.sellingPrice);
+  writer.writeDouble(offsets[19], object.shippingCost);
+  writer.writeString(offsets[20], object.size);
+  writer.writeString(offsets[21], object.status);
+  writer.writeString(offsets[22], object.title);
+  writer.writeDouble(offsets[23], object.totalPurchaseCost);
+  writer.writeString(offsets[24], object.trackingNumber);
+  writer.writeDateTime(offsets[25], object.updatedAt);
+  writer.writeString(offsets[26], object.uuid);
 }
 
 VintedArticle _vintedArticleDeserialize(
@@ -255,20 +262,21 @@ VintedArticle _vintedArticleDeserialize(
     id: id,
     isFavorite: reader.readBoolOrNull(offsets[8]) ?? false,
     location: reader.readStringOrNull(offsets[9]) ?? '',
-    notes: reader.readStringOrNull(offsets[11]) ?? '',
-    packagingCost: reader.readDoubleOrNull(offsets[12]) ?? 0.0,
-    photoPaths: reader.readStringList(offsets[13]) ?? const [],
-    platformFees: reader.readDoubleOrNull(offsets[14]) ?? 0.0,
-    purchasePrice: reader.readDouble(offsets[15]),
-    repairCost: reader.readDoubleOrNull(offsets[16]) ?? 0.0,
-    sellingPrice: reader.readDouble(offsets[17]),
-    shippingCost: reader.readDoubleOrNull(offsets[18]) ?? 0.0,
-    size: reader.readStringOrNull(offsets[19]) ?? '',
-    status: reader.readString(offsets[20]),
-    title: reader.readString(offsets[21]),
-    trackingNumber: reader.readStringOrNull(offsets[23]) ?? '',
-    updatedAt: reader.readDateTime(offsets[24]),
-    uuid: reader.readString(offsets[25]),
+    market: reader.readStringOrNull(offsets[10]) ?? 'Vinted',
+    notes: reader.readStringOrNull(offsets[12]) ?? '',
+    packagingCost: reader.readDoubleOrNull(offsets[13]) ?? 0.0,
+    photoPaths: reader.readStringList(offsets[14]) ?? const [],
+    platformFees: reader.readDoubleOrNull(offsets[15]) ?? 0.0,
+    purchasePrice: reader.readDouble(offsets[16]),
+    repairCost: reader.readDoubleOrNull(offsets[17]) ?? 0.0,
+    sellingPrice: reader.readDouble(offsets[18]),
+    shippingCost: reader.readDoubleOrNull(offsets[19]) ?? 0.0,
+    size: reader.readStringOrNull(offsets[20]) ?? '',
+    status: reader.readString(offsets[21]),
+    title: reader.readString(offsets[22]),
+    trackingNumber: reader.readStringOrNull(offsets[24]) ?? '',
+    updatedAt: reader.readDateTime(offsets[25]),
+    uuid: reader.readString(offsets[26]),
   );
   return object;
 }
@@ -301,36 +309,38 @@ P _vintedArticleDeserializeProp<P>(
     case 9:
       return (reader.readStringOrNull(offset) ?? '') as P;
     case 10:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readStringOrNull(offset) ?? 'Vinted') as P;
     case 11:
-      return (reader.readStringOrNull(offset) ?? '') as P;
+      return (reader.readDouble(offset)) as P;
     case 12:
-      return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
-    case 13:
-      return (reader.readStringList(offset) ?? const []) as P;
-    case 14:
-      return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
-    case 15:
-      return (reader.readDouble(offset)) as P;
-    case 16:
-      return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
-    case 17:
-      return (reader.readDouble(offset)) as P;
-    case 18:
-      return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
-    case 19:
       return (reader.readStringOrNull(offset) ?? '') as P;
+    case 13:
+      return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
+    case 14:
+      return (reader.readStringList(offset) ?? const []) as P;
+    case 15:
+      return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
+    case 16:
+      return (reader.readDouble(offset)) as P;
+    case 17:
+      return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
+    case 18:
+      return (reader.readDouble(offset)) as P;
+    case 19:
+      return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
     case 20:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset) ?? '') as P;
     case 21:
       return (reader.readString(offset)) as P;
     case 22:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 23:
-      return (reader.readStringOrNull(offset) ?? '') as P;
+      return (reader.readDouble(offset)) as P;
     case 24:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readStringOrNull(offset) ?? '') as P;
     case 25:
+      return (reader.readDateTime(offset)) as P;
+    case 26:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1610,6 +1620,142 @@ extension VintedArticleQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'location',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<VintedArticle, VintedArticle, QAfterFilterCondition>
+      marketEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'market',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<VintedArticle, VintedArticle, QAfterFilterCondition>
+      marketGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'market',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<VintedArticle, VintedArticle, QAfterFilterCondition>
+      marketLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'market',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<VintedArticle, VintedArticle, QAfterFilterCondition>
+      marketBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'market',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<VintedArticle, VintedArticle, QAfterFilterCondition>
+      marketStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'market',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<VintedArticle, VintedArticle, QAfterFilterCondition>
+      marketEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'market',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<VintedArticle, VintedArticle, QAfterFilterCondition>
+      marketContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'market',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<VintedArticle, VintedArticle, QAfterFilterCondition>
+      marketMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'market',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<VintedArticle, VintedArticle, QAfterFilterCondition>
+      marketIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'market',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<VintedArticle, VintedArticle, QAfterFilterCondition>
+      marketIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'market',
         value: '',
       ));
     });
@@ -3375,6 +3521,18 @@ extension VintedArticleQuerySortBy
     });
   }
 
+  QueryBuilder<VintedArticle, VintedArticle, QAfterSortBy> sortByMarket() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'market', Sort.asc);
+    });
+  }
+
+  QueryBuilder<VintedArticle, VintedArticle, QAfterSortBy> sortByMarketDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'market', Sort.desc);
+    });
+  }
+
   QueryBuilder<VintedArticle, VintedArticle, QAfterSortBy> sortByNetProfit() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'netProfit', Sort.asc);
@@ -3715,6 +3873,18 @@ extension VintedArticleQuerySortThenBy
     });
   }
 
+  QueryBuilder<VintedArticle, VintedArticle, QAfterSortBy> thenByMarket() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'market', Sort.asc);
+    });
+  }
+
+  QueryBuilder<VintedArticle, VintedArticle, QAfterSortBy> thenByMarketDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'market', Sort.desc);
+    });
+  }
+
   QueryBuilder<VintedArticle, VintedArticle, QAfterSortBy> thenByNetProfit() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'netProfit', Sort.asc);
@@ -3982,6 +4152,13 @@ extension VintedArticleQueryWhereDistinct
     });
   }
 
+  QueryBuilder<VintedArticle, VintedArticle, QDistinct> distinctByMarket(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'market', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<VintedArticle, VintedArticle, QDistinct> distinctByNetProfit() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'netProfit');
@@ -4157,6 +4334,12 @@ extension VintedArticleQueryProperty
   QueryBuilder<VintedArticle, String, QQueryOperations> locationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'location');
+    });
+  }
+
+  QueryBuilder<VintedArticle, String, QQueryOperations> marketProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'market');
     });
   }
 

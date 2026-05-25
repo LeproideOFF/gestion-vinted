@@ -1,6 +1,7 @@
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import '../domain/vinted_article.dart';
+import '../domain/market_config.dart';
 
 class IsarService {
   late Future<Isar> db;
@@ -16,14 +17,13 @@ class IsarService {
     if (Isar.instanceNames.isEmpty) {
       print('DB_LOG: Creating new Isar instance');
       final isar = await Isar.open(
-        [VintedArticleSchema],
+        [VintedArticleSchema, MarketConfigSchema],
         directory: dir.path,
         inspector: false,
       );
       print('DB_LOG: Isar instance created');
       return isar;
     }
-    print('DB_LOG: Returning existing Isar instance');
     return Isar.getInstance()!;
   }
 

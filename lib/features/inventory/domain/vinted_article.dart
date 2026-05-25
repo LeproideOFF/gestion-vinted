@@ -11,10 +11,10 @@ class VintedArticle {
 
   late String title;
   late String description;
-  late String category; // Nouveau
-  late String brand;    // Nouveau
-  late String size;     // Nouveau
-  late String condition;// Nouveau (Neuf, Très bon état, etc.)
+  late String category; 
+  late String brand;    
+  late String size;     
+  late String condition;
   
   late double purchasePrice; 
   late double sellingPrice; 
@@ -22,7 +22,7 @@ class VintedArticle {
   late double platformFees; 
   late double cleaningCost;
   late double repairCost;
-  late double packagingCost; // Nouveau
+  late double packagingCost; 
 
   List<String> photoPaths = [];
   late String status;
@@ -31,9 +31,10 @@ class VintedArticle {
   
   bool isFavorite = false;
   late String notes;
-  late String location; // Nouveau (Bac A, Etagère 2...)
-  late String barcode; // Nouveau (Code barre généré/scanné)
-  late String trackingNumber; // Nouveau (Suivi colis)
+  late String location; 
+  late String barcode; 
+  late String trackingNumber; 
+  late String market; // Vinted, Leboncoin, eBay...
 
   VintedArticle({
     this.id,
@@ -60,6 +61,7 @@ class VintedArticle {
     this.location = '',
     this.barcode = '',
     this.trackingNumber = '',
+    this.market = 'Vinted',
   });
 
   double get totalPurchaseCost => purchasePrice + shippingCost + platformFees + cleaningCost + repairCost + packagingCost;
@@ -99,6 +101,7 @@ class VintedArticle {
       'location': location,
       'barcode': barcode,
       'trackingNumber': trackingNumber,
+      'market': market,
     };
   }
 
@@ -127,6 +130,7 @@ class VintedArticle {
       location: json['location'] ?? '',
       barcode: json['barcode'] ?? '',
       trackingNumber: json['trackingNumber'] ?? '',
+      market: json['market'] ?? 'Vinted',
     );
   }
 }

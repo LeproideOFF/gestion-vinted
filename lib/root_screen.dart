@@ -5,6 +5,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'features/inventory/presentation/inventory_page.dart';
 import 'features/sync/presentation/sync_page.dart';
 import 'features/dashboard/presentation/dashboard_page.dart';
+import 'features/dashboard/presentation/sales_calendar_screen.dart';
+import 'features/inventory/presentation/audit_mode_screen.dart';
+import 'core/theme/settings_provider.dart';
 
 final navigationIndexProvider = StateProvider<int>((ref) => 0);
 
@@ -14,16 +17,30 @@ class RootScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedIndex = ref.watch(navigationIndexProvider);
+    final settings = ref.watch(appSettingsProvider);
+    final themeType = settings['theme'] as GlassTheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final screens = [
       const InventoryPage(),
       const DashboardPage(),
+      const SalesCalendarScreen(),
+      const AuditModeScreen(),
       const SyncPage(),
     ];
 
     return Scaffold(
       extendBody: true,
-      body: screens[selectedIndex],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: ThemeColors.getGradient(themeType, isDark),
+          ),
+        ),
+        child: screens[selectedIndex],
+      ),
       bottomNavigationBar: _LiquidBottomBar(),
     );
   }
@@ -37,57 +54,32 @@ class _LiquidBottomBar extends ConsumerWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 0, 24, 30),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 30),
       child: Container(
-        height: 80,
+        height: 70,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(35),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 30,
-              offset: const Offset(0, 10),
-            )
-          ],
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 20, offset: const Offset(0, 10))],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(35),
+          borderRadius: BorderRadius.circular(30),
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+            filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
-                color: (isDark ? Colors.white : Colors.black).withOpacity(isDark ? 0.08 : 0.05),
-                borderRadius: BorderRadius.circular(35),
-                border: Border.all(
-                  color: (isDark ? Colors.white : Colors.white).withOpacity(0.15),
-                  width: 1.5,
-                ),
+                color: (isDark ? Colors.white : Colors.black).withOpacity(isDark ? 0.1 : 0.05),
+                borderRadius: BorderRadius.circular(30),
+                border: Border.all(color: Colors.white.withOpacity(0.2)),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _NavBarIcon(
-                    index: 0,
-                    icon: Icons.inventory_2_rounded,
-                    label: 'Stock',
-                    isActive: selectedIndex == 0,
-                    onTap: () => ref.read(navigationIndexProvider.notifier).state = 0,
-                  ),
-                  _NavBarIcon(
-                    index: 1,
-                    icon: Icons.auto_graph_rounded,
-                    label: 'Profit',
-                    isActive: selectedIndex == 1,
-                    onTap: () => ref.read(navigationIndexProvider.notifier).state = 1,
-                  ),
-                  _NavBarIcon(
-                    index: 2,
-                    icon: Icons.bolt_rounded,
-                    label: 'Synchro',
-                    isActive: selectedIndex == 2,
-                    onTap: () => ref.read(navigationIndexProvider.notifier).state = 2,
-                  ),
+                  _NavIcon(0, Icons.inventory_2_rounded, 'Stock', selectedIndex, ref),
+                  _NavIcon(1, Icons.auto_graph_rounded, 'Stats', selectedIndex, ref),
+                  _NavIcon(2, Icons.calendar_month_rounded, 'Agenda', selectedIndex, ref),
+                  _NavIcon(3, Icons.qr_code_scanner_rounded, 'Audit', selectedIndex, ref),
+                  _NavIcon(4, Icons.bolt_rounded, 'P2P', selectedIndex, ref),
                 ],
               ),
             ),
@@ -96,42 +88,28 @@ class _LiquidBottomBar extends ConsumerWidget {
       ),
     );
   }
-}
 
-class _NavBarIcon extends StatelessWidget {
-  final int index;
-  final IconData icon;
-  final String label;
-  final bool isActive;
-  final VoidCallback onTap;
+  Widget _NavIcon(int index, IconData icon, String label, int current, WidgetRef ref) {
+    final isActive = index == current;
+    final color = isActive ? Theme.of(ref.context).colorScheme.primary : Colors.grey.withOpacity(0.7);
 
-  const _NavBarIcon({required this.index, required this.icon, required this.label, required this.isActive, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => ref.read(navigationIndexProvider.notifier).state = index,
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeOutCubic,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        duration: 300.ms,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: isActive ? colorScheme.primary.withOpacity(0.15) : Colors.transparent,
+          color: isActive ? color.withOpacity(0.15) : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon,
-              color: isActive ? colorScheme.primary : Colors.grey.withOpacity(0.6),
-              size: 26,
-            ),
+            Icon(icon, color: color, size: 24),
             if (isActive)
-              Text(label, style: TextStyle(color: colorScheme.primary, fontSize: 10, fontWeight: FontWeight.bold))
-                  .animate().fadeIn().moveY(begin: 5, end: 0),
+              Text(label, style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.bold))
+                .animate().fadeIn().moveY(begin: 3, end: 0),
           ],
         ),
       ),

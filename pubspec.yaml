@@ -32,6 +32,15 @@ dependencies:
   csv: ^6.0.0
   share_plus: ^10.0.0
   desktop_drop: ^0.4.4
+  speech_to_text: ^7.4.0
+  table_calendar: ^3.1.2
+
+  # Business Secret Pack
+  google_mlkit_text_recognition: ^0.13.0
+  local_auth: ^2.3.0
+  fl_chart: ^0.70.2
+  confetti: ^0.7.0
+  vibration: ^2.0.1
 
   # Connectivité P2P
   flutter_blue_plus: ^1.31.0
