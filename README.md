@@ -1,6 +1,6 @@
 # 🛍️ Gestion Vinted Pro - P2P Serverless
 
-Une solution ultra-premium, 100% privée et sans serveur, pour gérer votre inventaire Vinted comme un professionnel. Développé intégralement par **leprodie**.
+Une solution ultra-premium, 100% privée et sans serveur, pour gérer votre inventaire Vinted comme un professionnel. Développé intégralement par **leproide**.
 
 ---
 
@@ -72,4 +72,4 @@ Cette application a été conçue pour les "Power Users" de Vinted qui souhaiten
 
 ---
 
-*Développé avec passion par **leprodie**.*
+*Développé avec passion par **leproide**.*
