@@ -1,0 +1,51 @@
+name: gestion_vinted
+description: "A serverless Vinted inventory management app with P2P synchronization."
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+
+  # État Global
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  # Base de données (Offline-first)
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  path_provider: ^2.1.2
+
+  # Animations & UI
+  flutter_animate: ^4.5.0
+  google_fonts: ^6.3.2
+
+  # Photos
+  image_picker: ^1.1.2
+
+  # Power User Features
+  barcode_widget: ^2.0.4
+  mobile_scanner: ^5.2.3
+  csv: ^6.0.0
+  share_plus: ^10.0.0
+  desktop_drop: ^0.4.4
+
+  # Connectivité P2P
+  flutter_blue_plus: ^1.31.0
+  nsd: ^5.0.0
+  uuid: ^4.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  
+  # Générateurs Isar & Riverpod
+  isar_generator: ^3.1.0+1
+  riverpod_generator: ^2.4.0
+  build_runner: ^2.4.8
+
+flutter:
+  uses-material-design: true
