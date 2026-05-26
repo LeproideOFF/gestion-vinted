@@ -7,7 +7,7 @@ import 'features/sync/presentation/sync_page.dart';
 import 'features/dashboard/presentation/dashboard_page.dart';
 import 'features/dashboard/presentation/sales_calendar_screen.dart';
 import 'features/dashboard/presentation/settings_page.dart';
-import 'features/inventory/presentation/audit_mode_screen.dart';
+import 'features/inventory/presentation/express_inventory_screen.dart';
 import 'core/theme/settings_provider.dart';
 
 final navigationIndexProvider = StateProvider<int>((ref) => 0);
@@ -30,7 +30,7 @@ class RootScreen extends ConsumerWidget {
           const InventoryPage(),
           const DashboardPage(),
           const SalesCalendarScreen(),
-          const AuditModeScreen(),
+          const ExpressInventoryScreen(),
           const SyncPage(),
           const SettingsPage(),
         ];
@@ -84,7 +84,7 @@ class RootScreen extends ConsumerWidget {
                 _SidebarItem(0, Icons.inventory_2_rounded, 'Inventaire', selectedIndex, ref),
                 _SidebarItem(1, Icons.auto_graph_rounded, 'Statistiques', selectedIndex, ref),
                 _SidebarItem(2, Icons.calendar_month_rounded, 'Calendrier', selectedIndex, ref),
-                _SidebarItem(3, Icons.qr_code_scanner_rounded, 'Audit Stock', selectedIndex, ref),
+                _SidebarItem(3, Icons.qr_code_scanner_rounded, 'Inv. Express', selectedIndex, ref),
                 _SidebarItem(4, Icons.bolt_rounded, 'Synchronisation', selectedIndex, ref),
                 const Spacer(),
                 _SidebarItem(5, Icons.settings_rounded, 'Paramètres', selectedIndex, ref),
@@ -167,7 +167,7 @@ class _LiquidBottomBar extends ConsumerWidget {
                   _NavIcon(0, Icons.inventory_2_rounded, 'Stock', selectedIndex, ref),
                   _NavIcon(1, Icons.auto_graph_rounded, 'Stats', selectedIndex, ref),
                   _NavIcon(2, Icons.calendar_month_rounded, 'Agenda', selectedIndex, ref),
-                  _NavIcon(3, Icons.qr_code_scanner_rounded, 'Audit', selectedIndex, ref),
+                  _NavIcon(3, Icons.qr_code_scanner_rounded, 'Scan', selectedIndex, ref),
                   _NavIcon(4, Icons.bolt_rounded, 'P2P', selectedIndex, ref),
                   _NavIcon(5, Icons.settings_rounded, 'Param', selectedIndex, ref),
                 ],
