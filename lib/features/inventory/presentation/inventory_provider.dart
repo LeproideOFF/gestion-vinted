@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../data/isar_service.dart';
 import '../domain/vinted_article.dart';
+import '../../../core/utils/discord_service.dart';
 
 part 'inventory_provider.g.dart';
 
@@ -21,7 +22,37 @@ class InventoryNotifier extends _$InventoryNotifier {
   FutureOr<void> build() {}
 
   Future<void> addArticle(VintedArticle article) async {
-    await ref.read(isarServiceProvider).saveArticle(article);
+    final isar = ref.read(isarServiceProvider);
+    
+    // On sauvegarde
+    await isar.saveArticle(article);
+    
+    // Notification Discord optionnelle
+    try {
+      final discord = ref.read(discordServiceProvider.notifier);
+      
+      // On envoie la notification complète (on simplifie en ne cherchant pas l'ancien état pour éviter les bugs Isar)
+      await discord.sendArticleNotification(article: article, isUpdate: false);
+
+      if (article.status == 'Vendu') {
+        await discord.sendSaleNotification(
+          title: article.title,
+          profit: article.netProfit,
+          salePrice: article.sellingPrice,
+        );
+
+        final allArticles = await isar.getAllArticles();
+        final totalSales = allArticles
+            .where((a) => a.status == 'Vendu' && a.updatedAt.year == DateTime.now().year)
+            .fold(0.0, (sum, a) => sum + a.sellingPrice);
+        
+        if (totalSales >= 2400) {
+          await discord.sendFiscalAlert(totalSales: totalSales, limit: 3000);
+        }
+      }
+    } catch (e) {
+      // On ignore
+    }
   }
 
   Future<void> removeArticle(int id) async {

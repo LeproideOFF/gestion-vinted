@@ -46,6 +46,7 @@ dependencies:
   flutter_blue_plus: ^1.31.0
   nsd: ^5.0.0
   uuid: ^4.4.0
+  http: ^1.6.0
 
 dev_dependencies:
   flutter_test:

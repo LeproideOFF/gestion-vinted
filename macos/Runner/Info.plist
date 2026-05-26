@@ -36,5 +36,13 @@
 	<array>
 		<string>_vintedsync._tcp</string>
 	</array>
+
+	<key>NSFaceIDUsageDescription</key>
+	<string>Cette application utilise FaceID pour sécuriser votre inventaire professionnel.</string>
+
+	<key>NSMicrophoneUsageDescription</key>
+	<string>L'application utilise le micro pour vous permettre d'ajouter des articles à la voix.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>L'application utilise la reconnaissance vocale pour comprendre vos commandes d'ajout d'articles.</string>
 </dict>
 </plist>

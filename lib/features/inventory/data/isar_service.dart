@@ -2,6 +2,7 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import '../domain/vinted_article.dart';
 import '../domain/market_config.dart';
+import '../../../core/theme/settings_config.dart';
 
 class IsarService {
   late Future<Isar> db;
@@ -11,20 +12,29 @@ class IsarService {
   }
 
   Future<Isar> openDB() async {
-    print('DB_LOG: Opening database...');
     final dir = await getApplicationDocumentsDirectory();
-    print('DB_LOG: Documents directory: ${dir.path}');
-    if (Isar.instanceNames.isEmpty) {
-      print('DB_LOG: Creating new Isar instance');
-      final isar = await Isar.open(
-        [VintedArticleSchema, MarketConfigSchema],
-        directory: dir.path,
+    final dbPath = dir.path;
+    
+    try {
+      if (Isar.instanceNames.isEmpty) {
+        return await Isar.open(
+          [VintedArticleSchema, MarketConfigSchema, SettingsConfigSchema],
+          directory: dbPath,
+          inspector: false,
+        );
+      }
+      return Isar.getInstance()!;
+    } catch (e) {
+      print('DB_LOG: Schema error, attempting recovery: $e');
+      if (Isar.instanceNames.isNotEmpty) {
+        await Isar.getInstance()?.close();
+      }
+      return await Isar.open(
+        [VintedArticleSchema, MarketConfigSchema, SettingsConfigSchema],
+        directory: dbPath,
         inspector: false,
       );
-      print('DB_LOG: Isar instance created');
-      return isar;
     }
-    return Isar.getInstance()!;
   }
 
   // CRUD Articles

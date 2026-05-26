@@ -1,75 +1,56 @@
 # 🛍️ Gestion Vinted Pro - P2P Serverless
 
-Une solution ultra-premium, 100% privée et sans serveur, pour gérer votre inventaire Vinted comme un professionnel. Développé intégralement par **leproide**.
+Une solution ultra-premium, 100% privée et sans serveur, pour gérer votre empire de revente (Vinted, Leboncoin, eBay...). Développé intégralement par **leprodie**.
 
 ---
 
 ## 🌟 Le Concept
-Cette application a été conçue pour les "Power Users" de Vinted qui souhaitent une gestion totale de leurs stocks et de leur rentabilité, sans dépendre d'un cloud ou d'un serveur tiers. Toutes vos données restent sur vos appareils.
+Cette application transforme votre gestion de stock en un véritable centre de profit autonome. Sans aucun serveur cloud, vos données sont synchronisées en P2P et protégées par biométrie.
 
 ## 🚀 Fonctionnalités Majeures
 
-### 💎 Interface & Expérience (UX)
-*   **Design Liquid Glass :** Une esthétique moderne en verre dépoli avec des effets de flou en temps réel.
-*   **Mode Sombre Intégral :** Adaptation automatique au système pour une utilisation confortable jour et nuit.
-*   **Gestes de Glissement (Swipes) :** Modifiez ou supprimez vos articles d'un simple geste sur mobile.
-*   **Barre de Navigation Flottante :** Navigation fluide entre l'inventaire, les stats et la synchro.
-*   **Animations Fluides :** Transitions et retours visuels soignés pour une sensation "Premium".
+### 🤖 Intelligence Artificielle Locale (God-Tier)
+*   **Assistant Vocal 2.0 :** Ajoutez des articles les mains libres ("Ajoute Jean Levi's acheté 10€ revente 40€").
+*   **Optimiseur de Fiche :** Calcul du score de qualité de votre annonce en temps réel.
+*   **IA de Description :** Génération automatique de textes et hashtags optimisés.
+*   **Estimation de Prix IA :** Suggestion intelligente du prix de vente pour maximiser la rotation.
+*   **Smart Analytics :** L'IA détecte votre meilleur marché et prédit vos profits futurs.
 
-### 📊 Business & Finance
-*   **Calculateur de Profit Avancé :** Distinction précise entre coûts d'achat (prix, frais port, frais Vinted, emballage) et prix de revente.
-*   **Tableau de Bord Dynamique :** Visualisez votre bénéfice net total, votre ROI moyen et vos ventes potentielles.
-*   **Objectifs de Ventes :** Suivez votre progression mensuelle avec une barre de complétion interactive.
-*   **Statistiques de Rotation :** Analysez le pourcentage de votre stock vendu pour optimiser vos achats.
-*   **Export CSV (Desktop) :** Exportez tout votre inventaire en un clic pour votre comptabilité.
+### 💎 Expérience & Design
+*   **Rouleau de Marchés :** Basculez entre Vinted, Leboncoin et vos marchés personnalisés via un carrousel fluide.
+*   **Design Ultra-Glass :** Effets de transparence profonde avec thèmes personnalisables (Frost, Ocean, Gold, Neon).
+*   **Gestes Natifs :** Swipes pour modifier/supprimer, animations haptiques et célébrations (confettis).
+*   **Multi-Plateformes :** Parité parfaite entre iPhone et macOS.
 
-### 🔍 Logistique & Scan
-*   **Recherche avec Scan QR :** Trouvez un article instantanément dans votre stock en scannant son code.
-*   **Génération de QR Codes :** Générez des étiquettes uniques pour chaque article à imprimer et coller sur vos bacs de rangement.
-*   **Gestion des Emplacements :** Notez précisément où se trouve chaque article (ex: Bac A, Étagère 2).
-*   **Scan de Code-Barres :** Intégration pour scanner les codes-barres existants.
-*   **Suivi de Colis :** Enregistrez vos numéros de suivi directement dans la fiche article.
+### 📊 Business Intelligence
+*   **Stats Segmentées :** Visualisez vos profits par plateforme ou de manière consolidée.
+*   **Tableau de Bord Graphique :** Courbes d'évolution des profits et barre d'objectifs mensuels.
+*   **Agenda des Ventes :** Suivi calendaire de vos performances quotidiennes.
+*   **Alerte Fiscale :** Notification automatique à l'approche des seuils de déclaration (3000€).
 
-### 🔄 Synchronisation Magique P2P
-*   **Transfert Sans Serveur :** Synchronisez vos iPhones, iPads et Macs entre eux via le réseau local.
-*   **Partage d'Images :** Transfert automatique des photos haute résolution lors de la synchro.
-*   **Appairage par Code PIN :** Connexion sécurisée entre appareils avec une animation radar stylisée.
-*   **Résolution de Conflits :** Fusion intelligente des données basée sur l'horodatage le plus récent.
-
-### 🤖 Assistants Intégrés
-*   **IA de Description :** Générateur automatique de textes d'annonces propres et optimisés.
-*   **IA d'Estimation :** Aide à la fixation du prix de vente basée sur les caractéristiques de l'objet.
-*   **Générateur de Mots-Clés :** Création automatique de hashtags pour booster vos ventes.
+### 🔍 Logistique Avancée
+*   **Mode Audit de Stock :** Scannez vos bacs pour vérifier que chaque article est à sa place.
+*   **OCR Tickets :** Extraction automatique du prix d'achat depuis vos tickets de caisse.
+*   **Génération de QR/Barcodes :** Identifiants uniques pour chaque boîte de stock.
+*   **Générateur de Story :** Créez des visuels Instagram pour vos articles en un clic.
 
 ---
 
 ## 🛠 Stack Technique
-*   **Framework :** Flutter (Multiplateforme iOS / macOS / Android / Windows)
-*   **Base de données :** Isar (NoSQL local ultra-performant)
-*   **Gestion d'état :** Riverpod
-*   **UI/Animations :** flutter_animate, Google Fonts (Poppins)
-*   **Connectivité :** mDNS (nsd), Sockets TCP, mobile_scanner
-*   **Stockage :** Gestion permanente des fichiers locaux via Path Provider
+*   **Framework :** Flutter
+*   **Base de données :** Isar NoSQL (Local Persistence)
+*   **IA :** Google ML Kit (OCR), Speech-to-Text, Local Logic Engines
+*   **Sécurité :** Local Auth (Biométrie FaceID/TouchID)
+*   **UI :** flutter_animate, fl_chart, confetti, vibration
 
 ---
 
-## 💻 Installation (Développeur)
+## 💻 Installation (Power User)
 
-1.  **Prérequis :** Flutter SDK, Xcode (pour iOS/macOS), CocoaPods.
-2.  **Cloner le dépôt.**
-3.  **Installer les dépendances :**
-    ```bash
-    flutter pub get
-    ```
-4.  **Générer le code Isar/Riverpod :**
-    ```bash
-    flutter pub run build_runner build --delete-conflicting-outputs
-    ```
-5.  **Lancer l'application :**
-    ```bash
-    flutter run
-    ```
+1.  **Prérequis :** Flutter 3.29.0+, Xcode 15+ (pour iOS 13+ / macOS 11+).
+2.  **Installation :** `flutter pub get`.
+3.  **Génération :** `flutter pub run build_runner build`.
 
 ---
 
-*Développé avec passion par **leproide**.*
+*L'empire de la revente commence ici. Développé par **leprodie**.*

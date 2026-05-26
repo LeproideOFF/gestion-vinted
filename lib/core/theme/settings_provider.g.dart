@@ -6,12 +6,12 @@ part of 'settings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appSettingsHash() => r'40b39fbebac75a7cdbdae18e3887fee05c39ca04';
+String _$appSettingsHash() => r'6c2c2ffa9f0ab367de1c96366afab16eba29e9a5';
 
 /// See also [AppSettings].
 @ProviderFor(AppSettings)
 final appSettingsProvider =
-    AutoDisposeNotifierProvider<AppSettings, Map<String, dynamic>>.internal(
+    AsyncNotifierProvider<AppSettings, Map<String, dynamic>>.internal(
   AppSettings.new,
   name: r'appSettingsProvider',
   debugGetCreateSourceHash:
@@ -20,6 +20,6 @@ final appSettingsProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$AppSettings = AutoDisposeNotifier<Map<String, dynamic>>;
+typedef _$AppSettings = AsyncNotifier<Map<String, dynamic>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

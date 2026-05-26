@@ -10,8 +10,7 @@ A 100% serverless Flutter application for Vinted inventory management with P2P s
 - **UI/Animations:** `flutter_animate`
 - **Database:** Isar (Offline-first, high performance)
 - **State Management:** Riverpod
-- **Connectivity:** `nsd` (Service discovery / mDNS), `flutter_blue_plus` (BLE)
-- **Photos:** `image_picker`
+- **Connectivity:** `flutter_blue_plus` (BLE), `nsd` (Service discovery)
 
 ## Architecture & Conventions
 - **Pattern:** Clean Architecture / Feature-based layering.
@@ -25,16 +24,4 @@ A 100% serverless Flutter application for Vinted inventory management with P2P s
 - Iterate step-by-step; do not implement large chunks of code at once.
 - Maintain comprehensive documentation for P2P protocols.
 
-## Local Environment (Setup Completed)
-- A local Flutter SDK is installed in `./vendor/flutter`.
-- Use `./vendor/flutter/bin/flutter` to run commands.
-- **Note:** All dependencies have been installed and code generation (Isar/Riverpod) has been performed.
 
-## Status
-- [x] Initial structure and configuration
-- [x] Flutter SDK Installation
-- [x] Database Layer (Isar)
-- [x] Inventory Management (CRUD)
-- [x] Image Management (local storage)
-- [x] UI Polish & Animations
-- [x] P2P Synchronization (mDNS/Sockets)

@@ -36,7 +36,7 @@ final inventoryListProvider =
 );
 
 typedef InventoryListRef = AutoDisposeStreamProviderRef<List<VintedArticle>>;
-String _$inventoryNotifierHash() => r'cb3e3c0884b965f03e3ec118398efd2399a453c9';
+String _$inventoryNotifierHash() => r'8df2a775b3dc24dd919aae0ad1fff8a8df85b926';
 
 /// See also [InventoryNotifier].
 @ProviderFor(InventoryNotifier)

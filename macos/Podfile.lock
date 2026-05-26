@@ -4,6 +4,8 @@ PODS:
   - CwlCatchExceptionSupport (2.2.1)
   - desktop_drop (0.0.1):
     - FlutterMacOS
+  - device_info_plus (0.0.1):
+    - FlutterMacOS
   - file_selector_macos (0.0.1):
     - FlutterMacOS
   - flutter_blue_plus_darwin (0.0.2):
@@ -11,6 +13,9 @@ PODS:
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - isar_flutter_libs (1.0.0):
+    - FlutterMacOS
+  - local_auth_darwin (0.0.1):
+    - Flutter
     - FlutterMacOS
   - mobile_scanner (5.2.3):
     - FlutterMacOS
@@ -28,10 +33,12 @@ PODS:
 
 DEPENDENCIES:
   - desktop_drop (from `Flutter/ephemeral/.symlinks/plugins/desktop_drop/macos`)
+  - device_info_plus (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos`)
   - file_selector_macos (from `Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos`)
   - flutter_blue_plus_darwin (from `Flutter/ephemeral/.symlinks/plugins/flutter_blue_plus_darwin/darwin`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - isar_flutter_libs (from `Flutter/ephemeral/.symlinks/plugins/isar_flutter_libs/macos`)
+  - local_auth_darwin (from `Flutter/ephemeral/.symlinks/plugins/local_auth_darwin/darwin`)
   - mobile_scanner (from `Flutter/ephemeral/.symlinks/plugins/mobile_scanner/macos`)
   - nsd_macos (from `Flutter/ephemeral/.symlinks/plugins/nsd_macos/macos`)
   - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
@@ -46,6 +53,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   desktop_drop:
     :path: Flutter/ephemeral/.symlinks/plugins/desktop_drop/macos
+  device_info_plus:
+    :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos
   file_selector_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos
   flutter_blue_plus_darwin:
@@ -54,6 +63,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral
   isar_flutter_libs:
     :path: Flutter/ephemeral/.symlinks/plugins/isar_flutter_libs/macos
+  local_auth_darwin:
+    :path: Flutter/ephemeral/.symlinks/plugins/local_auth_darwin/darwin
   mobile_scanner:
     :path: Flutter/ephemeral/.symlinks/plugins/mobile_scanner/macos
   nsd_macos:
@@ -69,10 +80,12 @@ SPEC CHECKSUMS:
   CwlCatchException: 7acc161b299a6de7f0a46a6ed741eae2c8b4d75a
   CwlCatchExceptionSupport: 54ccab8d8c78907b57f99717fb19d4cc3bce02dc
   desktop_drop: e0b672a7d84c0a6cbc378595e82cdb15f2970a43
+  device_info_plus: 4fb280989f669696856f8b129e4a5e3cd6c48f76
   file_selector_macos: 6280b52b459ae6c590af5d78fc35c7267a3c4b31
   flutter_blue_plus_darwin: 20a08bfeaa0f7804d524858d3d8744bcc1b6dbc3
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   isar_flutter_libs: a65381780401f81ad6bf3f2e7cd0de5698fb98c4
+  local_auth_darwin: d2e8c53ef0c4f43c646462e3415432c4dab3ae19
   mobile_scanner: bd1e7cd9b67b442f4d903747f4778e040513f860
   nsd_macos: 2931bf63a0ddb97909400e775640a195d73bf7f1
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564

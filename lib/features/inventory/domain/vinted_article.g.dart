@@ -267,12 +267,12 @@ VintedArticle _vintedArticleDeserialize(
     packagingCost: reader.readDoubleOrNull(offsets[13]) ?? 0.0,
     photoPaths: reader.readStringList(offsets[14]) ?? const [],
     platformFees: reader.readDoubleOrNull(offsets[15]) ?? 0.0,
-    purchasePrice: reader.readDouble(offsets[16]),
+    purchasePrice: reader.readDoubleOrNull(offsets[16]) ?? 0.0,
     repairCost: reader.readDoubleOrNull(offsets[17]) ?? 0.0,
-    sellingPrice: reader.readDouble(offsets[18]),
+    sellingPrice: reader.readDoubleOrNull(offsets[18]) ?? 0.0,
     shippingCost: reader.readDoubleOrNull(offsets[19]) ?? 0.0,
     size: reader.readStringOrNull(offsets[20]) ?? '',
-    status: reader.readString(offsets[21]),
+    status: reader.readStringOrNull(offsets[21]) ?? 'A vendre',
     title: reader.readString(offsets[22]),
     trackingNumber: reader.readStringOrNull(offsets[24]) ?? '',
     updatedAt: reader.readDateTime(offsets[25]),
@@ -321,17 +321,17 @@ P _vintedArticleDeserializeProp<P>(
     case 15:
       return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
     case 16:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
     case 17:
       return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
     case 18:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
     case 19:
       return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
     case 20:
       return (reader.readStringOrNull(offset) ?? '') as P;
     case 21:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset) ?? 'A vendre') as P;
     case 22:
       return (reader.readString(offset)) as P;
     case 23:

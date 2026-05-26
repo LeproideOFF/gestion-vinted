@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:nsd/nsd.dart' as nsd;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:path_provider/path_provider.dart';
 import '../../inventory/domain/vinted_article.dart';
 import '../../inventory/presentation/inventory_provider.dart';
 import '../../../core/utils/file_service.dart';
+import '../../../core/utils/discord_service.dart';
 
 part 'sync_service.g.dart';
 
@@ -80,10 +82,11 @@ class SyncNotifier extends _$SyncNotifier {
             List<dynamic> base64Images = imagesData[article.uuid];
             for (var b64 in base64Images) {
               final bytes = base64Decode(b64);
-              final tempFile = File('${Directory.systemTemp.path}/${article.uuid}_${DateTime.now().millisecondsSinceEpoch}.jpg');
-              await tempFile.writeAsBytes(bytes);
-              final permPath = await FileService.saveImageToPermanentStorage(tempFile.path);
-              newLocalPaths.add(permPath);
+              final directory = await getApplicationDocumentsDirectory();
+              final fileName = '${article.uuid}_${DateTime.now().millisecondsSinceEpoch}.jpg';
+              final file = File('${directory.path}/$fileName');
+              await file.writeAsBytes(bytes);
+              newLocalPaths.add(file.path);
             }
           }
           article.photoPaths = newLocalPaths;
@@ -98,6 +101,14 @@ class SyncNotifier extends _$SyncNotifier {
         }
 
         state = SyncState(status: SyncStatus.success, message: '${articlesJson.length} articles synchronisés avec images !');
+        
+        // Notification Discord
+        try {
+          ref.read(discordServiceProvider.notifier).sendSyncNotification(
+            deviceName: 'Appareil distant',
+            count: articlesJson.length,
+          );
+        } catch (_) {}
       } catch (e) {
         state = SyncState(status: SyncStatus.failure, message: 'Erreur décodage: $e');
       }
@@ -119,8 +130,11 @@ class SyncNotifier extends _$SyncNotifier {
       for (var a in localArticles) {
         List<String> b64List = [];
         for (var path in a.photoPaths) {
-          final bytes = await File(path).readAsBytes();
-          b64List.add(base64Encode(bytes));
+          final file = File(path);
+          if (await file.exists()) {
+            final bytes = await file.readAsBytes();
+            b64List.add(base64Encode(bytes));
+          }
         }
         imagesBase64[a.uuid] = b64List;
       }
@@ -135,6 +149,14 @@ class SyncNotifier extends _$SyncNotifier {
       await socket.close();
 
       state = SyncState(status: SyncStatus.success, message: 'Données et photos envoyées !');
+
+      // Notification Discord
+      try {
+        ref.read(discordServiceProvider.notifier).sendSyncNotification(
+          deviceName: 'Cet appareil (Envoi)',
+          count: localArticles.length,
+        );
+      } catch (_) {}
     } catch (e) {
       state = SyncState(status: SyncStatus.failure, message: e.toString());
     }
