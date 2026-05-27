@@ -430,6 +430,22 @@ class _AddArticlePageState extends ConsumerState<AddArticlePage> {
               if (img != null) {
                 final perm = await FileService.saveImageToPermanentStorage(img.path);
                 setState(() => _photoPaths.add(perm));
+                
+                // Scan IA automatique de l'étiquette
+                final result = await OCRService.scanClothingLabel(perm);
+                if (result != null) {
+                  setState(() {
+                    if (result.brand != null && _brandController.text.isEmpty) {
+                      _brandController.text = result.brand!;
+                    }
+                    if (result.size != null && _sizeController.text.isEmpty) {
+                      _sizeController.text = result.size!;
+                    }
+                    if (result.category != null && _categoryController.text.isEmpty) {
+                      _categoryController.text = result.category!;
+                    }
+                  });
+                }
               }
             },
             child: GlassContainer(borderRadius: 20, child: Container(width: 120, height: 120, child: const Icon(Icons.add_a_photo, color: Colors.grey))),

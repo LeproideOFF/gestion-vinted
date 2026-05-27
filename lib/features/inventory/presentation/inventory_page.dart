@@ -7,6 +7,7 @@ import 'inventory_provider.dart';
 import 'add_article_page.dart';
 import 'article_qr_screen.dart';
 import 'market_provider.dart';
+import 'stock_qr_dialog.dart';
 import '../../../shared/glass_container.dart';
 import '../domain/vinted_article.dart';
 import '../domain/market_config.dart';
@@ -267,9 +268,10 @@ class _ArticleCard extends ConsumerWidget {
         background: Container(color: Colors.blue, alignment: Alignment.centerLeft, padding: const EdgeInsets.only(left: 20), child: const Icon(Icons.edit, color: Colors.white)),
         secondaryBackground: Container(color: Colors.red, alignment: Alignment.centerRight, padding: const EdgeInsets.only(right: 20), child: const Icon(Icons.delete, color: Colors.white)),
         confirmDismiss: (dir) async {
-          if (dir == DismissDirection.startToEnd) {
-            Navigator.push(context, MaterialPageRoute(builder: (c) => AddArticlePage(articleToEdit: article)));
-            return false;
+          final isLtr = Directionality.of(context) == TextDirection.ltr;
+          if (isLtr ? dir == DismissDirection.startToEnd : dir == DismissDirection.endToStart) {
+             Navigator.push(context, MaterialPageRoute(builder: (c) => AddArticlePage(articleToEdit: article)));
+             return false;
           }
           return true;
         },
@@ -285,7 +287,21 @@ class _ArticleCard extends ConsumerWidget {
             ),
             title: Text(article.title, style: const TextStyle(fontWeight: FontWeight.bold)),
             subtitle: Text('${article.sellingPrice}€ • ${article.status}'),
-            trailing: const Icon(Icons.chevron_right),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.qr_code_2_rounded, size: 20),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => StockQrDialog(article: article),
+                    );
+                  },
+                ),
+                const Icon(Icons.chevron_right),
+              ],
+            ),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (c) => AddArticlePage(articleToEdit: article))),
           ),
         ),
